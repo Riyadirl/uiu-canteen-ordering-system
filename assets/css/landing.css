@@ -1,0 +1,57 @@
+/* Background Image and General Layout */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.bg {
+    /* The background image */
+    background-image: url('../images/canteen.jpg');
+    /* Full height */
+    height: 100%; 
+    /* Center and scale the image */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    opacity: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.content h1 {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.vision {
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+.btn-custom {
+    margin-right: 10px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.top-right {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
