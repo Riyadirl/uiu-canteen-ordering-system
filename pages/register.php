@@ -1,14 +1,14 @@
 <?php
-// Include the database configuration file
+
 include('../config/config.php');
 
-// Initialize variables
+
 $name = $user_id = $email = $phone = $role = $gender = $password = "";
 $name_err = $user_id_err = $email_err = $phone_err = $role_err = $gender_err = $password_err = "";
 
-// Process form submission
+//submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate and sanitize inputs
+    // Validate 
     $name = trim($_POST["name"]);
     $user_id = trim($_POST["user_id"]);
     $email = trim($_POST["email"]);
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($name) || empty($user_id) || empty($email) || empty($phone) || empty($role) || empty($gender) || empty($password)) {
         $error_message = "All fields are required.";
     } else {
-        // Check if email or phone already exists
+        // Check exists
         $sql = "SELECT id FROM users WHERE email = ? OR phone = ?";
         if ($stmt = mysqli_prepare($conn, $sql)) {
             mysqli_stmt_bind_param($stmt, "ss", $email, $phone);
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_stmt_num_rows($stmt) > 0) {
                 $error_message = "Email or phone number already registered.";
             } else {
-                // Insert the new user
+                // Insert new user
                 $sql = "INSERT INTO users (name, user_id, email, phone, role, gender, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 if ($stmt = mysqli_prepare($conn, $sql)) {
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -79,10 +79,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <label for="role">Role:</label>
             <select id="role" name="role">
-                <option value="for_order" <?php echo $role == 'for_order' ? 'selected' : ''; ?>>Order</option>
+                <option value="for_order" <?php echo $role == 'for_order' ? 'selected' : ''; ?>>General</option>
                 <option value="canteen_owner" <?php echo $role == 'canteen_owner' ? 'selected' : ''; ?>>Canteen Owner</option>
                 <option value="delivery_man" <?php echo $role == 'delivery_man' ? 'selected' : ''; ?>>Delivery Man</option>
-                <option value="admin" <?php echo $role == 'admin' ? 'selected' : ''; ?>>Admin</option>
+               
             </select>
 
             <label for="gender">Gender:</label>

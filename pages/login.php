@@ -1,14 +1,14 @@
 <?php
-// Include the database configuration file
+
 include('../config/config.php');
 
-// Initialize variables
+
 $email = $password = "";
 $email_err = $password_err = "";
 
-// Process form submission
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate inputs
+    // Validate
     $email = trim($_POST["email"]);
     $password = trim($_POST["password"]);
 
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($password)) {
         $password_err = "Please enter your password.";
     } else {
-        // Check if email exists and validate password
+        // validate password
         $sql = "SELECT id, password FROM users WHERE email = ?";
         if ($stmt = mysqli_prepare($conn, $sql)) {
             mysqli_stmt_bind_param($stmt, "s", $email);
@@ -29,11 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 mysqli_stmt_bind_result($stmt, $id, $hashed_password);
                 if (mysqli_stmt_fetch($stmt)) {
                     if (password_verify($password, $hashed_password)) {
-                        // Start a new session
+
                         session_start();
                         $_SESSION["loggedin"] = true;
                         $_SESSION["id"] = $id;
-                        header("location: ../index.php");
+                        header("location: index.php");
                         exit();
                     } else {
                         $password_err = "The password you entered was not valid.";
@@ -49,12 +49,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="../assets/css/login.css">
 </head>
+
 <body>
     <div class="container">
         <h2>Login</h2>
@@ -62,15 +64,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="<?php echo $email; ?>">
             <span class="error"><?php echo $email_err; ?></span>
-            
+
             <label for="password">Password:</label>
             <input type="password" id="password" name="password">
             <span class="error"><?php echo $password_err; ?></span>
-            
+
             <button type="submit">Login</button>
         </form>
         <p>Don't have an account? <a href="register.php">Register here</a></p>
-      
+
     </div>
 </body>
+
 </html>
