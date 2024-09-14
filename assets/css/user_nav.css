@@ -1,0 +1,20 @@
+.navbar {
+    background-color: #ff4500; /* Irange background color */
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    transition: color 0.3s ease; /* Smooth transition on hover */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffd700; /* Hover color: bright yellow (#ffd700) */
+}
+
+.navbar-toggler-icon {
+    background-color: white; /* White color for the hamburger icon */
+}
+
+.navbar-brand:hover {
+    color: #ffd700; /* Hover effect on the brand/logo */
+}
