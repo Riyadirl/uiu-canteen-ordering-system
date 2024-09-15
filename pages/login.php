@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         session_start();
                         $_SESSION["loggedin"] = true;
                         $_SESSION["id"] = $id;
-                        header("location: index.php");
+                        header("location: home.php");
                         exit();
                     } else {
                         $password_err = "The password you entered was not valid.";
