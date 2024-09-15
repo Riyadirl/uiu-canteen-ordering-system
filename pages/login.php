@@ -20,20 +20,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password_err = "Please enter your password.";
     } else {
         // validate password
-        $sql = "SELECT id, password FROM users WHERE email = ?";
+        $sql = "SELECT id, password, role FROM users WHERE email = ?";
         if ($stmt = mysqli_prepare($conn, $sql)) {
             mysqli_stmt_bind_param($stmt, "s", $email);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_store_result($stmt);
             if (mysqli_stmt_num_rows($stmt) == 1) {
-                mysqli_stmt_bind_result($stmt, $id, $hashed_password);
+                mysqli_stmt_bind_result($stmt, $id, $hashed_password, $role);
                 if (mysqli_stmt_fetch($stmt)) {
                     if (password_verify($password, $hashed_password)) {
-
                         session_start();
                         $_SESSION["loggedin"] = true;
                         $_SESSION["id"] = $id;
-                        header("location: home.php");
+                        if($role == 'for_order'){
+                            header("location: userHome.php");
+                        }
+                        elseif($role == 'canteen_owner'){
+                            header("location: canteenOwnerHome.php");
+                        }
+                        elseif($role == 'admin'){
+                            header("location: adminHome.php");
+                        }
                         exit();
                     } else {
                         $password_err = "The password you entered was not valid.";
