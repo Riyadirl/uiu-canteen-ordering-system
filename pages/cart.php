@@ -2,9 +2,11 @@
 session_start(); // Start session to access the cart
 include("../config/config.php");
 
+$user_id = $_SESSION['user_id']; // Assuming user_id is stored in the session
+
 // Check if the cart is empty
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    echo "<h2>Your cart is empty!</h2>";
+    echo "<h2>No data found</h2>";
     exit;
 }
 
@@ -17,6 +19,12 @@ if (isset($_POST['update_quantity'])) {
     } else {
         $_SESSION['cart'][$food_id]['quantity'] = $new_quantity;
     }
+
+    // Recalculate the total price after updating the quantity
+    $total_price = 0;
+    foreach ($_SESSION['cart'] as $item) {
+        $total_price += $item['price'] * $item['quantity'];
+    }
 }
 
 // Handle item removal
@@ -25,10 +33,38 @@ if (isset($_GET['remove'])) {
     unset($_SESSION['cart'][$food_id]); // Remove item from cart
 }
 
-// Calculate total price
+// Recalculate total price if not set yet
 $total_price = 0;
 foreach ($_SESSION['cart'] as $item) {
     $total_price += $item['price'] * $item['quantity'];
+}
+
+// Handle order confirmation
+if (isset($_POST['confirm_order'])) {
+    $order_date = date('Y-m-d H:i:s');
+    $status = 'pending';
+    $location = $_POST['location'];
+
+    // Insert order into the database
+    $order_query = "INSERT INTO orders (user_id, order_date, total_price, status, location) VALUES ('$user_id', '$order_date', '$total_price', '$status', '$location')";
+    $order_run = mysqli_query($conn, $order_query);
+    $order_id = mysqli_insert_id($conn); // Get the inserted order ID
+
+    // Insert each item in the cart into order_items table (assuming you have this table)
+    foreach ($_SESSION['cart'] as $food_id => $item) {
+        $foodname = $item['foodname'];
+        $price = $item['price'];
+        $quantity = $item['quantity'];
+        $item_query = "INSERT INTO order_items (order_id, food_id, foodname, price, quantity) VALUES ('$order_id', '$food_id', '$foodname', '$price', '$quantity')";
+        mysqli_query($conn, $item_query);
+    }
+
+    // Clear the cart after successful order
+    unset($_SESSION['cart']);
+
+    // Redirect to dashboard
+    header("Location: user_dashboard.php");
+    exit;
 }
 ?>
 
@@ -98,15 +134,7 @@ foreach ($_SESSION['cart'] as $item) {
             background-color: #218838;
         }
     </style>
-    <script>
-        function confirmOrder(event) {
-            event.preventDefault();
-            let confirmation = confirm("Do you want to confirm your order?");
-            if (confirmation) {
-                window.location.href = 'userDashboard.php';
-            }
-        }
-    </script>
+    
 </head>
 <body>
     <?php include("../include/usernav.php"); ?>
@@ -125,7 +153,7 @@ foreach ($_SESSION['cart'] as $item) {
             </thead>
             <tbody>
                 <?php foreach ($_SESSION['cart'] as $food_id => $item): ?>
-                    <tr>
+                    <tr data-price="<?php echo $item['price']; ?>">
                         <td><?php echo $item['foodname']; ?></td>
                         <td><img src="../assets/images/food/<?php echo $item['canteen_id']; ?>/<?php echo $item['image']; ?>" alt="Food Image"></td>
                         <td><?php echo $item['price']; ?> tk</td>
@@ -133,10 +161,10 @@ foreach ($_SESSION['cart'] as $item) {
                             <form action="cart.php" method="post" class="d-inline-block">
                                 <input type="hidden" name="food_id" value="<?php echo $food_id; ?>">
                                 <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>" min="0" class="form-control d-inline-block" style="width: 80px;">
-                                <button type="submit" name="update_quantity" class="btn update-btn mt-2">Update</button>
+                                
                             </form>
                         </td>
-                        <td><?php echo $item['price'] * $item['quantity']; ?> tk</td>
+                        <td class="item-total"><?php echo $item['price'] * $item['quantity']; ?> tk</td>
                         <td>
                             <a href="cart.php?remove=<?php echo $food_id; ?>" class="remove-btn">Remove</a>
                         </td>
@@ -148,8 +176,47 @@ foreach ($_SESSION['cart'] as $item) {
         <div class="cart-total">
             Total Price: <?php echo $total_price; ?> tk
         </div>
-        <button class="confirm-btn" onclick="confirmOrder(event)">Confirm Order</button>
+
+        <!-- Confirm Order Form -->
+        <form id="confirmOrderForm" action="cart.php" method="post">
+            <input type="hidden" name="confirm_order" value="1">
+            <h3><label for="location">Enter your location: </label>
+            <input type="text" name="location" id="location"></h3>
+            <button class="confirm-btn" onclick="confirmOrder(event)">Confirm Order</button>
+        </form>
     </div>
-    <?php include('../include/footer.php'); ?>
+
+    <script>
+        // Function to update the total price in real-time
+        function updateTotal() {
+            let total = 0;
+            const rows = document.querySelectorAll('.cart-table tbody tr');
+            rows.forEach(row => {
+                const price = parseFloat(row.getAttribute('data-price'));
+                const quantity = row.querySelector('input[name="quantity"]').value;
+                const itemTotal = price * quantity;
+                row.querySelector('.item-total').textContent = itemTotal + ' tk';
+                total += itemTotal;
+            });
+            document.querySelector('.cart-total').textContent = 'Total Price: ' + total + ' tk';
+        }
+
+        // Add event listeners to quantity input fields
+        document.addEventListener('DOMContentLoaded', () => {
+            const quantityInputs = document.querySelectorAll('input[name="quantity"]');
+            quantityInputs.forEach(input => {
+                input.addEventListener('input', updateTotal);
+            });
+        });
+
+        // Confirm order function
+        function confirmOrder(event) {
+            event.preventDefault();
+            let confirmation = confirm("Confirm order?");
+            if (confirmation) {
+                document.getElementById("confirmOrderForm").submit(); // Submit the form
+            }
+        }
+    </script>
 </body>
 </html>

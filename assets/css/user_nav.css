@@ -1,20 +1,51 @@
+/* Navbar background and color settings */
 .navbar {
-    background-color: #ff4500; /* Irange background color */
+    background-color: #ff4500; /* Orange background color */
 }
 
+/* Navbar link color and hover effect */
 .navbar-nav .nav-link {
     color: white;
     transition: color 0.3s ease; /* Smooth transition on hover */
 }
 
+/* Hover effect for navbar links */
 .navbar-nav .nav-link:hover {
-    color: #ffd700; /* Hover color: bright yellow (#ffd700) */
+    color: #ffd700; /* Bright yellow on hover */
+    text-decoration: underline; /* Optional: adds underline on hover */
 }
 
-.navbar-toggler-icon {
-    background-color: white; /* White color for the hamburger icon */
+/* Hover effect for the brand/logo */
+.navbar-brand {
+    color: white;
+    transition: color 0.3s ease; /* Smooth transition for logo */
 }
 
 .navbar-brand:hover {
-    color: #ffd700; /* Hover effect on the brand/logo */
+    color: #ffd700; /* Bright yellow on hover for logo */
+}
+
+/* Navbar hamburger icon color */
+.navbar-toggler-icon {
+    background-color: white; /* White color for the hamburger icon */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.navbar-toggler-icon:hover {
+    background-color: #ffd700; /* Bright yellow for the hamburger icon on hover */
+}
+
+/* Buttons inside the navbar */
+.navbar .btn {
+    color: white;
+    background-color: #ff4500; /* Same as navbar color */
+    border: 2px solid white; /* White border */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover effect for buttons */
+.navbar .btn:hover {
+    background-color: white; /* Invert the button colors */
+    color: #ff4500; /* Orange text */
+    border-color: #ffd700; /* Bright yellow border */
 }

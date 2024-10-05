@@ -5,7 +5,7 @@
 
 <nav class="navbar navbar-expand-lg fixed-top" id="mainNav" style="background-color: chocolate;">
     <div class="container-fluid">
-        <a class="navbar-brand text-white" href="dashboard.php">UIUCOS</a>
+        <a class="navbar-brand text-white" href="userHome.php">UIUCOS</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -15,17 +15,15 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="userHome.php">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="favorites.php">Favorites</a>
-                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link text-white" href="cart.php">Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="dashboard.php">Dashboard</a>
+                    <a class="nav-link text-white" href="../pages/user_dashBoard.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="about.php">About Us</a>
+                    <a class="nav-link text-white" href="aboutUs.php">About Us</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="profile.php">Profile</a>

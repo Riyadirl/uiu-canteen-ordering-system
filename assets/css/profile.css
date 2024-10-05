@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.profile-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.profile-form .form-control {
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.profile-form label {
+    font-weight: bold;
+}
+
+.profile-form .form-select {
+    border-radius: 5px;
+}
+
+.profile-form button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.profile-form button:hover {
+    background-color: #0056b3;
+    color: white;
+}

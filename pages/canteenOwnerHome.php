@@ -2,7 +2,7 @@
 include('../config/config.php');
 session_start();
 $oid = $_SESSION['id'];
-$query = "SELECT `id`, `canteen_name` FROM `canteen` WHERE owner_id = '$oid'";
+$query = "SELECT `id`, `canteen_name` FROM `canteen` WHERE id = '$oid'";
 $run = mysqli_query($conn, $query);
 $result = mysqli_fetch_array($run);
 $canteen_id = $result['id'];

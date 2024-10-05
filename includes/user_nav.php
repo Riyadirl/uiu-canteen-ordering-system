@@ -1,7 +1,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-
+<link href='../assets/css/user_nav.css' rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <nav class="navbar navbar-expand-lg fixed-top" id="mainNav" style="background-color: chocolate;">
@@ -23,7 +23,7 @@
                     <a class="nav-link text-white" href="cart.php">Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="dashboard.php">Dashboard</a>
+                    <a class="nav-link text-white" href="user_dashBoard.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="about.php">About Us</a>

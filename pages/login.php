@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (password_verify($password, $hashed_password)) {
                         session_start();
                         $_SESSION["loggedin"] = true;
-                        $_SESSION["id"] = $id;
+                        $_SESSION["user_id"] = $id;
                         if($role == 'for_order'){
                             header("location: userHome.php");
                         }
@@ -40,6 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
                         elseif($role == 'admin'){
                             header("location: adminHome.php");
+                        }
+                        elseif($role == 'delivery_man'){
+                            header("location: dHome.php");
                         }
                         exit();
                     } else {
