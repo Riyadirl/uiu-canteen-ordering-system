@@ -1,0 +1,90 @@
+/* cart.css */
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+h2 {
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    background-color: white;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    margin-top: 10px;
+}
+
+button.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+button.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+button.btn-success:hover {
+    background-color: #218838;
+}
+
+h3 {
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+form button {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    table th, table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    input[type="number"] {
+        width: 50px;
+    }
+}
