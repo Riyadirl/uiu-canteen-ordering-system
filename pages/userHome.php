@@ -38,11 +38,13 @@ if (isset($_POST['cbtn'])) {
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         img {
-            height: 100%;
-            width: 100%;
-            margin: 0px;
-            border-radius: 20px;
-        }
+    height: 150px; /* Set a fixed height */
+    width: 100%;   /* Set the width to fill the container */
+    object-fit: cover; /* Ensures the image fills the space without distortion */
+    margin: 0px;
+    border-radius: 20px;
+}
+
         .col-3 {
             margin-bottom: 10px;
         }

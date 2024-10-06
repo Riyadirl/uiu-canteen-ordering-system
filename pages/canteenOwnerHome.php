@@ -1,8 +1,8 @@
 <?php include('../include/canteenOwnerNav.php');
 include('../config/config.php');
 session_start();
-$oid = $_SESSION['id'];
-$query = "SELECT `id`, `canteen_name` FROM `canteen` WHERE id = '$oid'";
+$oid = $_SESSION['user_id'];
+$query = "SELECT `id`, `canteen_name` FROM `canteen` WHERE owner_id = '$oid'";
 $run = mysqli_query($conn, $query);
 $result = mysqli_fetch_array($run);
 $canteen_id = $result['id'];
@@ -27,7 +27,7 @@ $_SESSION['canteen_id'] = $canteen_id;
 
 <body>
     <h1>Canteen Name: <?php echo $result['canteen_name'] ?></h1>
-    <h3>Food</h3>
+    
     <hr>
     <table class="table">
         <tr>
@@ -72,6 +72,12 @@ $_SESSION['canteen_id'] = $canteen_id;
         }
         ?>
     </table>
+    <script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this item?");
+    }
+</script>
+
 </body>
 
 </html>

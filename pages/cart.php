@@ -6,7 +6,8 @@ $user_id = $_SESSION['user_id']; // Assuming user_id is stored in the session
 
 // Check if the cart is empty
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    echo "<h2>No data found</h2>";
+   
+    echo "<img src='../assets/images/icons/empty-cart.png' alt='No Data Found' />";
     exit;
 }
 
@@ -40,6 +41,7 @@ foreach ($_SESSION['cart'] as $item) {
 }
 
 // Handle order confirmation
+// Handle order confirmation
 if (isset($_POST['confirm_order'])) {
     $order_date = date('Y-m-d H:i:s');
     $status = 'pending';
@@ -48,24 +50,32 @@ if (isset($_POST['confirm_order'])) {
     // Insert order into the database
     $order_query = "INSERT INTO orders (user_id, order_date, total_price, status, location) VALUES ('$user_id', '$order_date', '$total_price', '$status', '$location')";
     $order_run = mysqli_query($conn, $order_query);
-    $order_id = mysqli_insert_id($conn); // Get the inserted order ID
+    $order_id = mysqli_insert_id($conn); 
 
-    // Insert each item in the cart into order_items table (assuming you have this table)
+    // Insert each item in the cart into order_items table
     foreach ($_SESSION['cart'] as $food_id => $item) {
         $foodname = $item['foodname'];
         $price = $item['price'];
         $quantity = $item['quantity'];
+
+        // Insert into order_items
         $item_query = "INSERT INTO order_items (order_id, food_id, foodname, price, quantity) VALUES ('$order_id', '$food_id', '$foodname', '$price', '$quantity')";
         mysqli_query($conn, $item_query);
+
+        // Reduce the available quantity in the food table
+        $update_quantity_query = "UPDATE food SET quantity = quantity - '$quantity' WHERE id = '$food_id'";
+        mysqli_query($conn, $update_quantity_query);
     }
 
     // Clear the cart after successful order
     unset($_SESSION['cart']);
 
-    // Redirect to dashboard
+    // Redirect to user dashboard or order confirmation page
     header("Location: user_dashboard.php");
     exit;
 }
+
+
 ?>
 
 <!DOCTYPE html>
