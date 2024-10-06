@@ -65,9 +65,3 @@ Follow the steps below to set up and run the UIU Canteen Ordering System on your
 - Delivery management system
 - Admin dashboard for system management
 
-## Contributing
-Feel free to open issues or submit pull requests if you would like to contribute to this project.
-
----
-
-This will serve as a clear and structured guide for anyone looking to set up the project from GitHub.
