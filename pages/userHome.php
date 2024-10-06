@@ -1,19 +1,19 @@
 <?php
-session_start(); // Start session to track cart items
+session_start(); 
 include("../config/config.php");
 
 $query = "SELECT `id`, `foodname`, `image`, `price`, `quantity`, `canteen_id` FROM `food` WHERE 1";
 $run = mysqli_query($conn, $query);
 
-// Handle "Add to Cart" button functionality
+
 if (isset($_POST['cbtn'])) {
     $food_id = $_POST['id'];
     
-    // Check if item already exists in the cart
+   
     if (isset($_SESSION['cart'][$food_id])) {
         $_SESSION['cart'][$food_id]['quantity']++;
     } else {
-        // Fetch food details and add it to the cart
+        
         $food_query = "SELECT `id`, `foodname`, `price`, `canteen_id`, `image` FROM `food` WHERE `id` = $food_id";
         $food_run = mysqli_query($conn, $food_query);
         $food = mysqli_fetch_assoc($food_run);
@@ -23,7 +23,7 @@ if (isset($_POST['cbtn'])) {
             'price' => $food['price'],
             'canteen_id' => $food['canteen_id'],
             'image' => $food['image'],
-            'quantity' => 1 // Start with quantity 1
+            'quantity' => 1 
         ];
     }
 }
@@ -38,9 +38,9 @@ if (isset($_POST['cbtn'])) {
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         img {
-    height: 150px; /* Set a fixed height */
-    width: 100%;   /* Set the width to fill the container */
-    object-fit: cover; /* Ensures the image fills the space without distortion */
+    height: 150px; 
+    width: 100%;  
+    object-fit: cover; 
     margin: 0px;
     border-radius: 20px;
 }

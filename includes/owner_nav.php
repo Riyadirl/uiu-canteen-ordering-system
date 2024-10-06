@@ -1,4 +1,3 @@
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
@@ -16,23 +15,20 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="dashboard.php">Home</a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link text-white" href="add_food.php">Add Food</a>
                 </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="inventory.php">Inventory</a>
-                </li>
-                
+
+               
                 <li class="nav-item">
                     <a class="nav-link text-white" href="about.php">About Us</a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link text-white" href="profile.php">Profile</a>
                 </li>
-               
+
                 <li class="nav-item">
                     <a class="nav-link text-white" href="logout.php" title="Logout">
                         <i class="fas fa-sign-out-alt"></i>
@@ -45,9 +41,8 @@
 
 
 <style>
-    
     body {
-        padding-top: 56px; 
+        padding-top: 56px;
     }
 
     .navbar {
@@ -55,9 +50,9 @@
         transition: background-color 0.3s ease;
     }
 
-   
+
     .navbar:hover {
-        background-color: #cc3700; 
+        background-color: #cc3700;
     }
 
     .navbar-nav .nav-link {
@@ -73,6 +68,6 @@
     }
 
     .navbar-nav .nav-link i:hover {
-        color: #ffd700; 
+        color: #ffd700;
     }
 </style>

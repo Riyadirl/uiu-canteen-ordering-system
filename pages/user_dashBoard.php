@@ -6,11 +6,11 @@ include("../config/config.php");
 
 $user_id = $_SESSION['user_id'];
 
-// Query to get all orders for the logged-in user
+
 $order_query = "SELECT id, order_date, total_price, status FROM orders WHERE user_id = '$user_id' ORDER BY order_date DESC";
 $order_run = mysqli_query($conn, $order_query);
 
-// Check if there are any orders
+
 $has_orders = mysqli_num_rows($order_run) > 0;
 ?>
 
